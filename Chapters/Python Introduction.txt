@@ -1,0 +1,16 @@
+
+=> It is powerful language - versatile, using extension library, strong community,simplicity, cross - platform comptability.
+=> High level data structure - provides simplified and readable syntax.
+=> Dynamic Typing -  type of a variable is determined and checked at runtime. Doesn't know about the type of variable until the code is run. 
+                  It stores the value at memory location and then binds that variable name to memory container. And content can be accessed through variable name.
+=> Interpreter Nature - Reads and executes code line by line, directly translating it into actions.
+=> Extensive library - vast collection of pre-written modules and functions that bundled with Python distribution.
+=> 3rd Party Library - Numpy, Pandas
+=> Pointers - Achieve using object references and ctype module for interfacing with C code. Python object model handles memory management automatically and interact with data through references to object and not o memory addresses.
+=> Python is also suitable as an extension language for customizable applications because of its cross-platform comptability, simpler.
+=> For objects and modules description, we can see The Python Standard Library, The Python Language Reference. 
+=> For writing C, C++ -Means creating code in the form of shared libraries or modules, that adds functionality to a larger system or application by leveraging the power and performance of C/C++.
+=> Extending and Embedding the Python Interpreter and Python/C API Reference Manual. 
+=> For using extension, extend the python program into another application.
+=> Extending and Embedding the Python Interpreter - Describes how to write module in C or C++to extend Python interpreter with new modules. 
+
