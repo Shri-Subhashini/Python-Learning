@@ -1,0 +1,8 @@
+=> Specialized GUI - Program designed for a specific purpose, offering a user-friendly visual interface with interactive elemets like buttons, icons, menus rather than text-based commands. Example Calculator 
+=> Write - Python code; Compile - Python interpreter first compiles the code into bytecode with the extension .pyc or .pyo(found in __pyache__ folder) i.e converting human-readable code into a lower level representation. 
+   It is done by python interpreter. But we can do manally by python -m compileall 
+   Test - running program to ensure it behaves as expected. It includes executing the program to check for errors, bugs or unexpected behaviour. Test frameworks includes unittest, pytest or doctest; Re-compile - Occurs when make changes to our code and then run it again. 
+=> Unix Shell script is a plain text file that contains a series of commands for unix shell (CLI). Interface between the user and the OS. Windows batch files - command prompt/ windows poweshell. Shell scripts are best in changing text. 
+=> Variable declaration is not necessary.
+=> Python is extensible because it allows developers to integrate and extend its capabilities using other programming languages. You can write performance-critical parts of your application in a lower-level language while still using Python for higher-level logic.
+
