@@ -1,0 +1,28 @@
+=> range: Iterate over a sequence of numbers.  If the step argument is omitted, it defaults to 1. If the start argument is omitted, it defaults to 0. If step is zero,  ValueError is raised.
+
+>>> for i in range(1,5,0):
+...     print (i)
+...
+Traceback (most recent call last):
+  File "<python-input-63>", line 1, in <module>
+    for i in range(1,5,0):
+             ~~~~~^^^^^^^
+ValueError: range() arg 3 must not be zero
+ >>> for i in range(len(letters)):
+...     print(i, letters[i])
+...
+0 a
+1 g
+2 b
+
+=> Enumerate - Return an enumerate object. iterable must be a sequence, an iterator, or some other object which supports iteration. The next() method of the iterator returned by enumerate() returns a tuple containing a count (from start which defaults to 0) and the values obtained from iterating over iterable. 
+Eg: >>> list(enumerate(letters))
+[(0, 'a'), (1, 'g'), (2, 'b')]
+
+=> True, False and None is compared by identity operator. (is, is not) Checks 2 variables points to same object in a memory, not just same value.
+
+=> Variable assignments in a function store the value in the local symbol table.  Variable references first look in the local symbol table, then in the local symbol tables of enclosing functions, then in the global symbol table, and finally in the table of built-in names.
+=> Arguments are passed by call by value. We send a copy of value. If vaules changes here, it won’t reflect in original arguments.
+=> Python is pass by value not pass by reference. 
+=> Call by reference - Function receives a reference to the object, not a copy of the object’s value. Immutable objects can be send like this. If value changes, it reflects in both. 
+=> Functions return value is None.

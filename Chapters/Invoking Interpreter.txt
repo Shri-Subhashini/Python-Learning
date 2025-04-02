@@ -1,0 +1,8 @@
+=> Interpreter installed in /usr/local/bin/python3.13. In Unix shell type command python3.13, to start the python interpreter. Here, it resides in /usr/local/bin
+=> Another location will be /usr/local/python
+=> Python Launcher for Windows (py.exe launcher) - It is a utility which aids in locating and executing different Python versions.  It selects the correct appropriate version of Python. 
+=> Setting Environment Variables - Windows allow env variables to be configured permanently at both User level and System level or temporarily in a command prompt. To temporarily set environment variables, use set command. 
+Eg: C:/set PATH=C:\Program Files\Python 3.9;%PATH%
+=> EOF (Unix - Ctrl+D; Windows - Ctrl+Z). Every process has an exit code when it terminates. Zero exit status denotes, its exit  will be  succeeded. quit() is used to exit from the interpreter.
+=> Python Interpreter have interactive editing - insert/delete text with keyboard,mouse and cut/copy/paste clipboard operations; History Substitution - It makes easy to repeat commands, repeat arguments of previous command in current command. 
+=> GNU Readline Library - GNU Readline is a software library that provides in-line editing and history capabilities for interactive programs with a command-line interface.

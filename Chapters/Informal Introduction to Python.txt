@@ -1,0 +1,27 @@
+=> Presence of prompts like >>> (primary prompt) and … (continuous prompt) indicates that the interpreter is waiting for user input, while lines without these prompts represent output from the interpreter. 
+=> Comments starts with #
+=> Raw string doesn’t end in an odd number of \ characters - Correct format is (r”some\path\\”) or (r”some\path”). Raw string ends with \ cause problem because \ escapes the closing quote results in incomplete string.
+=> Strings are immutable. Assigning values to index will give error. Length: len(str). Strings are sequence type. Sequence type includes list,tuple, strings, ranges.
+=> str.format() - String formatting operation. It contains replacement fields, delimited by {}. Each replacement field contains either numeric index of a positional argument or name of a keyword argument. 
+Eg 1) name = “Subha”
+age = 25
+“Name: {0}, Age {1}”.format(name, age)
+2) “Name: {name}, Age: {age}”.format(name = “Subha”, age = 25)
+
+=> List is compound data type -  made up of multiple values or data types. Sequence types - list, tuple, string, range.
+=> List are mutable types.
+=> When you assign a list to variable, variable refers to existing list. Any changes done here, also reflects in new variable.
+ Eg: list1 = [1, 2, 3] 
+list2 = list1
+list2.append(4)
+print(list1) #[1,2,3,4]
+print(list2)  # [1,2,3,4]
+id(list1) == id(list2) #True
+=> All slice operations returns new list.It is shallow copy. 
+=> When we have nested list, each list is considered as collection of item. Inside the list, we have various objects like [1,2,3,4]. So it changes in both list.
+=> Top-level elements: The shallow copy will create new objects for the outermost structure. Top level objects are independent.
+=> Nested objects: If the original list contains other objects (like lists or dictionaries), the shallow copy will not create new copies of those nested objects. Instead, it will simply copy the references to the nested objects. As a result, changes made to the nested objects in either the original or the shallow copy will affect both, because they refer to the same underlying object. Nested objects are dependent. 
+=> Shallow copy creates new object but doesn’t copy nested objects. Instead it copies references to the original object. Both original and copy points to the same nested objects. If modifying nested object through original or copy, change will visible in both. 
+=> Deep copy: => Top-Level Object: A new copy of the top-level object is created.
+=> Nested Objects: Instead of just copying references to the nested objects (like a shallow copy), a deep copy will recursively create new copies of any objects contained within the original object. This means each level of the object hierarchy is copied. The deep copy works recursively, meaning that it copies the nested objects and their sub-objects, ensuring that all levels of the original object are duplicated.
+
