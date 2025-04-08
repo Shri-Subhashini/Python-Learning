@@ -1,0 +1,240 @@
+# Classes themselves are objects. This provides semantics for importing and renaming -
+# When you import a module, you are essentially importing a namespace containing objects, including classes.
+# You can rename a class during import using the as keyword, which allows you to refer to the class by a different name within your current scope. 
+# import my_module  ; from my_module import MyClass as RenamedClass
+'''
+In C++,virtual - In C++, declaring all member functions as virtual, or making a class abstract by having pure virtual functions, enables polymorphism, allowing derived classes to override base functions and ensuring correct implementation.
+
+class Base {
+public:
+    virtual void someFunction() {
+        // Base class implementation
+    }
+};
+
+class Derived : public Base {
+public:
+    void someFunction() override {
+        // Derived class implementation
+    }
+};
+'''
+
+Word about names and objects:
+
+Unlike C++ and Modula-3, built-in types can be used as base classes for extension by the user. - Python allows user-defined classes to inherit from built-in types such as int, str,list(i.e) you can extend or modify the behavior of built-in types by creating your own classes that inherit from them. 
+Like in C++, most built-in operators with special syntax (arithmetic operators, subscripting etc.) can be redefined for class instances. - By defining special methods, you can redefine how operators like +, -, * work eith instances of your class. 
+Objects have individuality - each object occcupies a specific place in memoryand multiple variables can point to same object in memory. 
+This behavior, where more than 1 name can refer to same object is called aliasing. With immutable obj, aliasing is harmless because changes to an object create new object, leaving the original object unchanged.
+It have more impact on mutable objects because changes made to one alias can affect all other reference to that object. 
+To avoid unintended aliasing - use copy module or list slicing.
+In Python, passing objects to functions is cheap because only a reference (or pointer) to the object is passed, 
+not the actual object itself. This means that Python uses a single argument-passing mechanism, rather than needing separate mechanisms like "pass-by-value" or "pass-by-reference"
+In Python, the argument-passing mechanism is uniform: all arguments are passed by object reference. The behavior (whether the object is modified or not) depends on whether the object is mutable or immutable, not on the mechanism used to pass the argument.
+
+
+Python Scopes and Namespaces
+
+Once the interpreter is started, built-in namespace will be created and never deleted. 
+Namespace : Its like a container - A namespace in Python is essentially a mapping from variable names (or identifiers) to their corresponding objects (values).
+In Python, when you refer to names (such as variables, functions, or classes), Python uses different namespaces to resolve them.
+Built-in Namespace: Contains all the built-in functions, exceptions, and other objects that are always available in Python. Eg: abs(), print() ; can use without impoting it.
+Global Namespace: Contains names that are defined at the module level (i.e., top-level variables, functions, and classes). Last until interpreter quits.
+Local Namespace: Contains names that are defined inside a function (i.e., variables and parameters of the function).
+Python follows LEGB rule - Local, Enclosing (applicable for nested loops), Global, Built-in
+Attributes of an object also forms a namespace. Person class have person1 as object. And name and age as attributes.
+To get internal attribute namespace using : print(person1.__dict__)
+No relation between names in different namesapces.
+In Python, references to names in modules (such as modname.funcname) are essentially attribute references. 
+When you access an attribute (like a function or a variable) of a module using the modname.funcname syntax, you're actually accessing an attribute of the module object.
+del modname.the_answer - to del this attribute
+In Python, when you run a script or interact with the interpreter, the top-level statements (the ones not inside any function or class) are executed within a module called __main__ ( which serves as the entry point to the program). This means that the script you're running or the interactive environment is treated as a module, and it has its own global namespace.
+Recursive invocations each have their own local namespace.
+A scope in Python refers to a specific region or block of code where a particular namespace is directly accessible.
+If not declared nonlocal, those variables are read-only (an attempt to write to such a variable will simply create a new local variable in the innermost scope, leaving the identically named outer variable unchanged).
+The global scope of a function defined in a module is that module’s namespace, no matter from where or by what alias the function is called .
+Eg:
+module_a.py:
+
+x = "global variable in module_a"
+
+def foo():
+    print(f"x in module_a: {x}")  # Accesses global variable x from module_a
+
+module_b.py:
+
+import module_a
+
+# Calling foo() from module_a
+module_a.foo()
+
+When you run module_b.py, it imports module_a.py.
+Inside module_a.py, the global scope of the function foo() is the module’s namespace, i.e., module_a.
+The global variable x inside module_a.py will be accessed, and it will print "x in module_a: global variable in module_a".
+Even though module_a.foo() is called from module_b.py, the global scope of foo() is still the global namespace of module_a. This means that foo() will always look for x in the global scope of module_a, regardless of where foo() is called.
+
+Output;
+x in module_a: global variable in module_a
+
+Dynamic Name Resolution:
+ 
+This means that variable lookups happen at runtime, based on the context in which a name is accessed.
+In Python, global and nonlocal variables are resolved dynamically, which means that their values can change during the execution of the program.
+For example, if you access a variable that is not explicitly defined in the local scope, Python will search for it in the enclosing, global, and built-in scopes dynamically at runtime.
+
+Static Name Resolution:
+
+This means that the resolution of certain names (like local variables) is done at compile-time (or, more accurately, during the creation of the function or method's code object).
+For example, local variables are already determined statically. When a function is defined, Python knows which variables will be available locally, so it can resolve names at compile-time.
+
+
+Python can determine the local variables in a function at the time of compilation (or during the creation of the function's bytecode). This behavior is more similar to statically typed languages, where variable types and scopes are resolved early.
+
+Class Definition syntax
+
+Class definitions, like function definitions (def statements) must be executed before they have any effect - class definitions (using class) must be executed before they can be used, meaning they need to be encountered during program execution before you can create instances or access their members. 
+When a class definition completes, a "class object" is created, acting as a container or wrapper for the namespace.
+When a class definition is completed, the original local scope (before the class definition) is restored, and the newly created class object is bound to the class name specified in the class definition header.
+
+Class Objects
+
+Class objects support two kinds of operations: attribute references and instantiation.
+Attribute Reference - obj.name - Valid attribute names are all the names that were in the class's namesapce.
+__doc__ - also a valid attribute, retun docstring belonging to that class. 
+Class instantiation - creates a new instance of the class.
+When a class is instantiated (called), an empty object is created. To customize this object with a specific initial state, many classes define a special method called __init__(). This method, also known as the constructor, is automatically executed when a new object of the class is created.
+The __init__() method allows the class to initialize the attributes of the object with specific values. It takes self as the first argument, which refers to the instance being created, and can also take additional arguments to specify the initial state.
+
+Instance Objects
+
+Only operations understood by instance objects are attribute references.
+There are two kinds of valid attribute names: data attributes and methods.
+The valid method names for an instance are precisely the names of the methods defined in its class. 
+x.f is a bound method object. It’s a method that is bound to the instance x. This means that when you invoke x.f(), the instance x is automatically passed as the first argument (self) to the method f.
+MyClass.f is just the function object. It’s not tied to any particular instance. To invoke it, you would need to pass an instance (like x) manually, using MyClass.f(x).
+x.i accesses the instance attribute i. If i is not defined as an instance attribute, Python will look for it in the class and then in the class's parent classes
+MyClass.i accesses the class attribute i. It doesn't require an instance, and it will always access the same value for all instances of the class, unless it’s shadowed by an instance attribute.
+
+Methd Objects
+
+In the MyClass example, this will return the string 'hello world'. However, it is not necessary to call a method right away: x.f is a method object, and can be stored away and called at a later time.
+x.f() == MyClass.f(x)
+
+Calling a method with a list of n arguments is equivalent to calling the corresponding function with an argument list that is created by inserting the method’s instance object before the first argument.
+(i.e) x.f('Subha') == MyClass.f(x, 'Subha')
+
+
+Class and Instance variables
+Instance variables - unique to each instance
+Class Variables - Attributes and methods shared by all instances of the class.
+shared data can have possibly surprising effects with involving mutable objects such as lists and dictionaries. For example, the tricks list in the following code should not be used as a class variable because just a single list would be shared by all Dog instances
+
+Random Remarks
+If both instance and class variables have same name, then Python class priortize the instance variable.
+It is not necessary that the function definition is textually enclosed in the class definition:
+
+Eg:
+def greet(self):
+    print(f"Hello from {self.name}!")
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+# Assign the function to a class attribute
+Person.greet = greet
+
+# Now instances of Person can call the greet method
+p = Person("Alice")
+p.greet()  # Output: Hello from Alice!
+
+Assigning a function object to a local variable in the class is also ok.
+Eg:
+def say_goodbye(self):
+    print(f"Goodbye from {self.name}!")
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+        # Assigning function as a local variable inside the class
+        self.farewell = say_goodbye
+
+p = Person("Bob")
+p.farewell()  # Output: Goodbye from Bob!
+
+
+Multiple inheritance
+
+Method Resolution Order (MRO) is a key concept in Python, especially in the context of multiple inheritance.
+In Python, the MRO is not static; it is calculated dynamically based on the class hierarchy and Python's C3 Linearization algorithm. This is done so that methods can call super() to invoke methods in the next class in the MRO. This dynamic resolution allows cooperative calls to super(), meaning that multiple base classes can cooperate by calling their methods in a predictable, linear order.
+
+
+Private Variables
+
+Name Mangling -  a mechanism to prevent accidental name collisions between class members and those defined in subclasses.
+Eg:
+class MyClass:
+    def __init__(self):
+        self.__private_attribute = 10
+
+    def get_private_attribute(self):
+        return self.__private_attribute
+
+obj = MyClass()
+#print(obj.__private_attribute) # This would raise an AttributeError
+print(obj._MyClass__private_attribute) # Accessing the mangled name
+print(obj.get_private_attribute())
+
+In this example, __private_attribute is name-mangled to _MyClass__private_attribute. While it appears to offer privacy, it primarily serves to avoid naming conflicts in inheritance scenarios. It does not enforce strict privacy, as the mangled name can still be accessed directly.
+Both exec() and eval() are used to dynamically execute Python code. However, they do not consider the context in which they are called when determining what the current class is (if you are inside a class). The class in which the code is executed does not become the "current class" when exec() or eval() runs the code.
+Eg:
+class MyClass:
+    def __init__(self):
+        self.name = "MyClass"
+
+    def exec_example(self):
+        code = "print(self.name)"
+        exec(code)  # exec does not consider MyClass as the current class
+
+    def eval_example(self):
+        code = "self.name"
+        result = eval(code)  # eval does not consider MyClass as the current class
+        print(result)
+
+# Testing the code
+obj = MyClass()
+obj.exec_example()  # Prints: MyClass (but not inside the current class context)
+obj.eval_example()  # Prints: MyClass
+
+exec() executes the code passed as a string and does not bind it to the class context. Inside the class, the code passed to exec() will treat self like a global variable in the current scope, but it doesn't link to the class.
+
+The same applies to eval() when it is used inside methods. It doesn't consider the class or the method context.
+
+
+Generators
+
+Generators are a simple and powerful tool for creating iterators. 
+yield statement whenever they want to return data.
+Each time next() is called on it, the generator resumes where it left off.
+
+Generator Expressions
+
+Simple generators can be coded as expressions using a syntax similar to list comprehensions but with parentheses instead of square brackets.
+In Python, yield is a keyword used in generators to return values one at a time from a function. Unlike regular functions that return a value and terminate, a function containing yield returns a generator object that can be iterated over, and each call to yield produces a value and pauses the function's execution. The function can then be resumed later from where it left off, continuing to produce values one at a time.
+Eg:
+def my_generator():
+    yield 1
+    yield 2
+    yield 3
+gen = my_generator()
+
+print(next(gen))  # Output: 1
+print(next(gen))  # Output: 2
+print(next(gen))  # Output: 3
+
+
+
+Doubt: “Directly accessible” here means that an unqualified reference to a name attempts to find the name in the namespace.
+Outside functions, the local scope references the same namespace as the global scope: the module’s namespace. Class definitions place yet another namespace in the local scope.
+
+In general, methods work as follows. When a non-data attribute of an instance is referenced, the instance’s class is searched. If the name denotes a valid class attribute that is a function object, references to both the instance object and the function object are packed into a method object. When the method object is called with an argument list, a new argument list is constructed from the instance object and the argument list, and the function object is called with this new argument list.
