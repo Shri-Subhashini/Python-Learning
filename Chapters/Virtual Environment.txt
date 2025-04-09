@@ -1,0 +1,27 @@
+Virtual Environment - a self-contained directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages.
+A common directory location for a virtual environment is .venv
+
+1) python -m venv tutorial-env
+2) On Windows, run: tutorial-env\Scripts\activate
+   On Unix or MacOS, run: source tutorial-env/bin/activate
+3) Enter into python mode: python; to come out of python interpreter - exit()
+4) To deactivate : deactivate
+
+
+Managing Packages with pip
+You can install, upgrade, and remove packages using a program called pip.
+pip has a number of subcommands: “install”, “uninstall”, “freeze”,
+
+1) python -m pip install novas - To install packages
+   python -m pip install requests==2.6.0 - To install packages with version number
+
+A new release of pip is available: 24.3.1 -> 25.0.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+
+2) python -m pip install --upgrade requests- To upgrade the package to the latest version
+3) python -m pip uninstall requests - To uninstall request packages
+4) python -m pip show requests - Display information about a particular package
+5) python -m pip list - Display all of the packages installed in the virtual environment
+6) python -m pip freeze > requirements.txt -  produce a similar list of the installed packages, but the output uses the format that python -m pip install expects
+7) cat requirements.txt - To see this txt file, it has all installed packages of my application in a system which we can send to someone to install the same in their system. It is a part of application. It can be committed to version control.
+8) python -m pip install -r requirements.txt - Once I done pull,use this cmd to see and install the changes done by others. 

@@ -1,5 +1,134 @@
 #Modules
 Python has a way to put definitions in a file and use them in a script or in an interactive instance of the interpreter. Such a file is called a module
 The module’s name (as a string) is available as the value of the global variable __name__
-from fibo import * - This imports all names except those beginning with an underscore (_).
 
+More on Modules
+They are executed only the first time the module name is encountered in an import statement.
+We can't run module, but we can change them as a script.
+
+from fibo import * - This imports all names except those beginning with an underscore (_).
+import fibo as fib - alias - If the module name is followed by as, then the name following as is bound directly to the imported module.
+When you execute import some_module, Python will:
+
+Look for the module in the module search path.
+If it’s found, Python will load the module and execute its code.
+After that, Python stores a reference to that module in a special dictionary called sys.modules.
+If you modify the code in a module and then try to import it again, Python won’t load the updated version of the module automatically. This is because Python has already cached the original version in sys.modules, and it will reuse that cached version unless you explicitly tell it to reload the module.
+This is where importlib.reload() comes in handy. If you are working interactively (e.g., in a Python shell or Jupyter notebook) and you want to test changes you've made to a module, you can use importlib.reload() to reload the module and apply the changes without restarting the interpreter.
+
+
+Executing Module as a script
+
+1) Command to run a Python module - python fibo.py <arguments>
+2) In fibo.py module, at last line, give as; 
+    if __name__ == "__main__":
+    import sys
+    fib(int(sys.argv[1]))
+3) Run, fibo.py Module - python fibo.py 200
+
+
+Module Search path
+When module is imported, it first searches in Builtin module. Then it searched\s for fibo.py file in a list of directories given by sys.path.
+First, we need to initialize sys.path from the location:
+    1) current directory
+    2) PYTHON path
+    3) Installation Dependent Default
+
+symlinks is a special type of file in mac, linux. Which containspointers of the other files. So, we should not add symlink as search path becoz it again goes to each pointer path.
+The directory containing the script being run is placed at the beginning of the search path, ahead of the standard library path.
+Eg:
+/home/user/project/
+  ├── myscript.py
+  ├── math.py  # Your local module
+
+myscript.py
+
+import sys
+print(sys.path)
+import math  # This will import 'math.py' from your local directory
+
+Output sys.path
+
+['', '/usr/lib/python3.8', '/usr/local/lib/python3.8', ...]
+
+The '' entry in sys.path corresponds to the current directory, which is /home/user/myproject/.
+
+
+Setting Python path in cmd 
+
+C:\Users\skumarvel>python
+Python 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sys
+>>> sys.path
+['', 'C:\\Program Files\\Python313\\python313.zip', 'C:\\Program Files\\Python313\\DLLs', 'C:\\Program Files\\Python313\\Lib', 'C:\\Program Files\\Python313', 'C:\\Program Files\\Python313\\Lib\\site-packages']
+>>> exit()
+
+C:\Users\skumarvel>set PYTHONPATH=D:\
+
+C:\Users\skumarvel>echo %PYTHONPATH%
+D:\
+
+C:\Users\skumarvel>python
+Python 3.13.2 (tags/v3.13.2:4f8bb39, Feb  4 2025, 15:23:48) [MSC v.1942 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sys
+>>> sys.path
+['', 'D:\\', 'C:\\Program Files\\Python313\\python313.zip', 'C:\\Program Files\\Python313\\DLLs', 'C:\\Program Files\\Python313\\Lib', 'C:\\Program Files\\Python313', 'C:\\Program Files\\Python313\\Lib\\site-packages']
+>>> exit()
+
+C:\Users\skumarvel>python -c "import sys; print(sys.path)"
+['', 'D:\\', 'C:\\Program Files\\Python313\\python313.zip', 'C:\\Program Files\\Python313\\DLLs', 'C:\\Program Files\\Python313\\Lib', 'C:\\Program Files\\Python313', 'C:\\Program Files\\Python313\\Lib\\site-packages']
+
+C:\Users\skumarvel>set PYTHONPATH=
+
+C:\Users\skumarvel>echo %PYTHONPATH%
+%PYTHONPATH%
+
+C:\Users\skumarvel>python -c "import sys; print(sys.path)"
+['', 'C:\\Program Files\\Python313\\python313.zip', 'C:\\Program Files\\Python313\\DLLs', 'C:\\Program Files\\Python313\\Lib', 'C:\\Program Files\\Python313', 'C:\\Program Files\\Python313\\Lib\\site-packages']
+
+
+Compiled Python files
+
+To speed up loading modules --> Python caches the compiled version of each module in the __pycache__ directory under the name module.version.pyc
+Python does not check the cache in two circumstances:
+    1) No source, no cache
+    2) it always recompiles and does not store the result for the module that’s loaded directly from the command line
+
+Tips - 
+You can use the -O or -OO switches on the Python command to reduce the size of a compiled module.
+The -O switch removes assert statements, the -OO switch removes both assert statements and __doc__ strings.
+cmd - python -0 modulename.py; python -00 modulename.py
+Eg:
+# Assertion succeeds
+assert 3 > 2
+
+# Assertion fails and raises an AssertionError
+# assert 3 < 2, "This should never happen!"
+
+# More complex example
+def divide(a, b):
+    assert b != 0, "Cannot divide by zero"
+    return a / b
+
+Standard Modules
+
+Standard modules in Python are pre-built files containing functions, classes, and variables that provide a wide range of functionalities. These modules are included in the Python standard library, offering tools for various tasks without requiring external installations.
+Examples of built-in modules: math, os, sys, random
+Examples of standard library modules (not built-in): collections, datetime, logging, numpy, pip, time. 
+
+
+Eg:
+>>> import sys
+>>> sys.ps1
+'>>> '
+>>> sys.ps2
+'... '
+>>> sys.ps1 = "S> "
+S> print("Subha")
+Subha
+
+dir() function 
+
+Used to find out which names a module defines

@@ -150,6 +150,30 @@ class Dog(Animal):
 dog = Dog()
 dog.speak()
 
+# isinstance(object, classinfo) 
+
+class Animal:
+    pass
+class Dog(Animal):
+    pass
+dog = Dog()
+print(isinstance(dog ,Animal)) # here, dog is object of the Derived class and the base class
+print(isinstance(dog , Dog))
+print(isinstance(Dog , Animal)) # False because Dog is not object instance of Animal. We are deriving only.
+
+#issubclass(class, classinfo)
+
+class School:
+    pass
+class Pavithra(School):
+    pass
+class Suba(School):
+    pass
+
+print(issubclass(Pavithra , School)) # Pavithra , Suba is the subclass of school
+print(issubclass(Suba , School))
+print(issubclass(Suba , Pavithra)) # Pavithra , Suba is the subclass of school but is does not mean Suba should be a subclass of Pvithra
+
 
 #Multiple Inheritance
 
