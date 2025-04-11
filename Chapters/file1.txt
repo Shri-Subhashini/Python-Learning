@@ -1,0 +1,2 @@
+Open a terminal or command prompt and navigate to the directory 
+Suppose you have the following files
