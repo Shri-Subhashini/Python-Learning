@@ -131,3 +131,127 @@ except ZeroDivisionError as err:
     print("Handling run-time error: ", err)
 
 
+# Raising Exception
+
+'''
+try:
+    raise NameError('HiThere')
+except NameError:
+    print('An exception flew by!')
+    raise
+
+'''
+
+#Exception Chaining
+
+'''
+try:
+    open("database.sqlite")
+except:
+    raise RuntimeError("unable to handle error")
+
+
+o/p
+FileNotFoundError: [Errno 2] No such file or directory: 'database.sqlite'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\Python-Learning\Python-Learning\Chapters\Chapter8.py", line 149, in <module>     
+    raise RuntimeError("unable to handle error")
+RuntimeError: unable to handle error
+
+
+def greet():
+    raise ConnectionError
+try:
+    greet()
+except ConnectionError as conn:
+    raise RuntimeError("Failed") from conn
+
+
+Output for from conn
+Traceback (most recent call last):
+  File "D:\Python-Learning\Python-Learning\Chapters\Chapter8.py", line 170, in <module>     
+    greet()
+    ~~~~~^^
+  File "D:\Python-Learning\Python-Learning\Chapters\Chapter8.py", line 168, in greet        
+    raise ConnectionError
+ConnectionError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Python-Learning\Python-Learning\Chapters\Chapter8.py", line 172, in <module>     
+    raise RuntimeError("Failed") from conn    
+RuntimeError: Failed
+
+
+Output for None:
+Traceback (most recent call last):
+  File "D:\Python-Learning\Python-Learning\Chapters\Chapter8.py", line 172, in <module>     
+    raise RuntimeError("Failed") from None    
+RuntimeError: Failed
+'''
+#Defining cleanup actions
+'''
+try:
+    raise KeyboardInterrupt
+finally:
+    print('Bye')
+
+o/p
+Bye
+Traceback (most recent call last):
+  File "D:\Python-Learning\Python-Learning\Chapters\Chapter8.py", line 199, in <module>
+    raise KeyboardInterrupt
+KeyboardInterrupt
+'''
+def test():
+    try:
+        return "From try"
+    finally:
+        print("In finally")
+
+print(test())
+
+#Predefined clean up actions
+
+with open("file1.txt") as f:
+    for line in f:
+        print(line, end = "")
+
+# Raising and Handling Multiple Unrelated Exceptions
+
+def f():
+    # excs = [OSError('error 1'), SystemError('error 2')]
+    # raise ExceptionGroup('there was a problem', excs)
+    raise ExceptionGroup(
+        "group1", [OSError(1), SystemError(2), ExceptionGroup("group 2", [OSError(3), RecursionError(4)])])
+
+try:
+    f()
+# except Exception as e:
+#     print(f"caught{type(e)}: e")
+
+except* OSError as e:
+    print("OsError occured")
+except* SystemError as e:
+    print("SystemError occured")
+except* RecursionError as e:
+    print("There were RecursionErrors")
+
+#Handled recursionexception also, so there is no traceback and no re-raise
+
+'''
+try:
+    raise TypeError('bad type')
+except Exception as exe:
+    exe.add_note('Exception handled note')
+    raise
+except ValueError as e:
+    e.add_note('Add some information')
+    e.add_note('Add some more information')
+    raise
+
+'''
