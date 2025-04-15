@@ -1,0 +1,245 @@
+Syntax Error or Parsinga Errors - A syntax error occurs when there is a mistake in the structure or format of the code, such that it doesn't follow the rules or grammar of the Python language. 
+Eg:
+>>> while True print("Hello")
+  File "<python-input-7>", line 1
+    while True print("Hello")
+               ^^^^^
+SyntaxError: invalid syntax
+
+
+Exceptio error - It occurs during runtime. An exception error occurs when there is an error during the runtime of a program, after it has successfully passed the syntax check. Exceptions occur when the program is running and encounters an unexpected situation that causes the program to stop or behave incorrectly.
+Eg:
+>>> 12* (3/0)
+Traceback (most recent call last):
+  File "<python-input-8>", line 1, in <module>
+    12* (3/0)
+         ~^~
+ZeroDivisionError: division by zero
+
+>>> 7 + hello*3
+Traceback (most recent call last):
+  File "<python-input-9>", line 1, in <module>
+    7 + hello*3
+        ^^^^^
+NameError: name 'hello' is not defined. Did you mean: 'help'?
+
+>>> '3'+3
+Traceback (most recent call last):
+  File "<python-input-10>", line 1, in <module>
+    '3'+3
+    ~~~^~
+TypeError: can only concatenate str (not "int") to str
+
+In programming, exceptions are described as not unconditionally fatal because the program can handle them using try-except blocks, preventing a complete shutdown.
+try - specifies exception handler or cleanup code for a group of statements
+except -  The except clause(s) specify one or more exception handlers. When no exception occurs in the try clause, no exception handler is executed. 
+An expression-less except clause - except:
+    print("Caught an unspecified exception!")
+
+BaseException is a parent Exception 
+At most one handler will be executed
+Handlers only handle exceptions that occur in the corresponding try clause, not in other handlers of the same try statement.
+Eg:
+
+try:
+    print("Trying something risky.")
+    x = 10 / 0  # This will raise a ZeroDivisionError
+except ZeroDivisionError:
+    print("Caught ZeroDivisionError!")
+    y = 10 / 0  # This will raise another ZeroDivisionError inside the handler
+except Exception:
+    print("Caught a general Exception!")
+
+The first statement in the try block (print("Trying something risky.")) is executed.
+Next, the line x = 10 / 0 is executed. This raises a ZeroDivisionError because division by zero is not allowed.
+The ZeroDivisionError that was raised in the try block is caught by the first except block, which is specifically for handling ZeroDivisionError.
+The message "Caught ZeroDivisionError!" is printed.
+Inside the first except block, we attempt to perform another risky operation: y = 10 / 0, which raises another ZeroDivisionError.
+However, this second exception is raised inside the except block, not in the try block.
+The second ZeroDivisionError that was raised inside the first except block is not caught by the first except clause. This is because the first except block already handled the exception raised in the try block, and exceptions raised within a handler are not passed back to the same try block or to other handlers in the same try-except statement.
+So, this second ZeroDivisionError will propagate and move to the next matching except clause, which is the general Exception handler.
+Since there is a general except Exception: block that matches all exceptions, this block will handle the second ZeroDivisionError that was raised inside the first except block.
+The message "Caught a general Exception!" is printed.
+
+
+When an exception occurs, it may have associated values, also known as the exception’s arguments
+Exception instance - Eg: ValueError, ZeroDivisionError
+
+Binding an Exception to a Variable - When you specify a variable in the except clause after the exception type, that variable is bound to the exception instance. The exception instance is an object of the exception type (e.g., ValueError, ZeroDivisionError, etc.) and typically contains information about what caused the exception, such as error messages or other details passed during its creation.
+BaseException is the common base class of all exceptions. Exception is one of the subclass of BaseException. Exception, is the base class for all non-fatal exceptions. 
+In Python, Exception is the base class for most user-defined and built-in exceptions, representing non-fatal errors that can be handled by regular code, while BaseException is the root of all exceptions, including fatal ones like SystemExit and KeyboardInterrupt. 
+BaseException: This is the top-level class for all exceptions in Python, acting as the root of the exception hierarchy. 
+Exception: It's a subclass of BaseException and serves as the base class for most exceptions that are not considered fatal. Exceptions that are subclasses of Exception are typically intended to be handled by regular code. 
+Non-Fatal Exceptions: These are exceptions that, while indicating an error, don't necessarily mean the program needs to terminate immediately. They can often be handled and the program can continue running. 
+Fatal Exceptions: Exceptions that are not subclasses of Exception (like SystemExit and KeyboardInterrupt) are considered fatal and usually indicate that the program should terminate. 
+Example: You might catch a FileNotFoundError (a subclass of Exception) to handle a missing file, but you wouldn't typically try to handle a KeyboardInterrupt
+Best Practice:
+When defining custom exceptions, it's recommended to derive them from Exception instead of BaseException
+
+
+The exception’s __str__() output is printed as the last part (‘detail’) of the message for unhandled exceptions.
+Eg:
+
+3'+3
+Traceback (most recent call last):
+  File "<python-input-10>", line 1, in <module>
+    '3'+3
+    ~~~^~
+TypeError: can only concatenate str (not "int") to str - This line denotes the above
+
+
+Rasising exception
+
+raise - allows the programmer to force a specified exception to occur.
+
+Eg:
+raise NameError("Hello")
+Traceback (most recent call last):
+  File "<python-input-0>", line 1, in <module>
+    raise NameError("Hello")
+NameError: Hello
+
+Exception Class and Exception instance
+Eg:
+raise ValueError("Invalid output")
+
+Here, ValueError is the exception class.
+"Invalid input" is passed to create an instance of that class.
+So, ValueError("Invalid input") is the exception instance.
+
+Exception Chaining
+
+If an unhandled exception occurs inside an except section, it will have the exception being handled attached to it.
+
+Defining cleanup actions
+
+Executed in all circumstances
+
+1) If an exception occurs during execution of the try clause, the exception may be handled by an except clause. If the exception is not handled by an except clause, the exception is re-raised after the finally clause has been executed.
+Eg:
+try:
+    1 / 0
+finally:
+    print("In finally")
+
+O/p
+In finally
+ZeroDivisionError: division by zero
+
+2)  An exception could occur during execution of an except or else clause. Again, the exception is re-raised after the finally clause has been executed.
+Eg:
+try:
+    print("In try")
+except Exception:
+    raise RuntimeError("Oops in except")
+finally:
+    print("In finally")
+
+o/p 
+In try
+In finally
+RuntimeError: Oops in except
+
+try:
+    print("All good")
+except:
+    pass
+else:
+    raise ValueError("Error in else")
+finally:
+    print("In finally")
+
+
+3) If the finally clause executes a break, continue or return statement, exceptions are not re-raised.
+Eg:
+def test():
+    try:
+        raise ValueError("Something went wrong")
+    finally:
+        return "Silently handled"
+
+print(test())
+
+o/p 
+Silently handled
+
+4) If the try statement reaches a break, continue or return statement, the finally clause will execute just prior to the break, continue or return statement’s execution.
+Eg:
+def test():
+    try:
+        return "From try"
+    finally:
+        print("In finally")
+
+print(test())
+
+o/p 
+In finally
+From try
+
+5) If a finally clause includes a return statement, the returned value will be the one from the finally clause’s return statement, not the value from the try clause’s return statement.
+Eg:
+def test():
+    try:
+        return "Try return"
+    finally:
+        return "Finally return"
+
+print(test())
+
+O/p 
+Finally return
+
+
+Predefined clean up actions
+
+for line in open("myfile.txt"):
+    print(line, end="")
+  
+This opens the file, but doesn't explicitly close it.
+Python may eventually close the file when the object is garbage-collected, but there's no guarantee when that happens.
+In larger applications or long-running programs, this can:
+Leave files open longer than needed
+Lock files
+Exhaust file handles (if too many are open)
+Cause issues on platforms like Windows where you can't reopen or delete open files
+
+with open("myfile.txt") as f:
+    for line in f:
+        print(line, end="")
+
+with statement automatically handles clean-up, even if:
+An error occurs
+You return early
+You break the loop
+It ensures the file is closed properly as soon as the block exits.
+
+
+with isn't just for files. You can use it for:
+Database connections
+Network sockets
+Thread locks
+Temporary directories/files
+Custom cleanup logic
+
+
+The with statement uses something called a context manager — an object that defines:
+__enter__() → what happens when the block starts (e.g., open the file)
+__exit__() → what happens when the block ends (e.g., close the file)
+
+with open("myfile.txt") as f:
+    # do something
+
+Equivalent to :
+
+f = open("myfile.txt")
+try:
+    # do something
+finally:
+    f.close()
+  
+Summary:
+with open(...) as f:   ->  Best practice: automatic clean-up
+
+Raising and Handling Multiple Unrelated Exceptions
+

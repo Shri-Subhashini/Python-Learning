@@ -1,0 +1,39 @@
+Two ways of writing values: expression statements and the print() function. (A third way is using the write()
+1) Formatted String Literals
+2) str.format()
+
+print(f'{yes_votes:-9}END')
+Output: 42572654 END
+Notice the space between the number and END — it's padded with 1 space to make the total width 9 characters.
+
+When you don’t need fancy output but just want a quick display of some variables for debugging purposes, you can convert any value to a string with the repr() or str() functions.
+s = 'Hello\nWorld'
+print(str(s))   # Hello  ; human-readable form
+                # World
+print(repr(s))  # 'Hello\nWorld' ; interpreter readbale form
+
+str() gives a clean, readable version.
+repr() gives the exact internal representation — including escape characters.
+The string module contains a Template class
+from string import Template
+
+t = Template("Hello, $name! You have $count new messages.")
+result = t.substitute(name="Alice", count=5)
+print(result) Output: Hello, Alice! You have 5 new messages.
+
+(or)
+
+data = {'name': 'Bob', 'count': 3}
+print(t.substitute(data))
+
+
+Other modifiers can be used to convert the value before it is formatted.
+!a - ascii()
+!s - str()
+!r - repr()
+
+Reading and Writing Files
+
+open()- used with 2 positional arguments, 1 keyword arguments
+open(filename, mode, encoding = None)
+mode - r - read; w - write; a - append; r+ - both read and write (like overwriting) ; by default 'r'

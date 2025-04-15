@@ -1,0 +1,6 @@
+1) OS Interface - getcwd(), os.mkdir(), os.system()
+2) shutil - copy and move 
+3) glob - used to search for files and directories by matching filename patterns using wildcards (like *.py, data/*.csv, etc.)
+4) sys - sys.argv
+5) argparse - argparse module, which is a powerful and flexible way to handle command-line arguments in Python programs. It allows you to define what arguments your script will accept and how to process them.
+6) re - regular expression
