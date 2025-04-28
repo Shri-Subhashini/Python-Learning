@@ -205,7 +205,7 @@ wrapper = WrapperClass()
 @click.command()
 @click.option('--function', required=True, type=int, help='Function number to run')
 @click.option('--password', required=False, help='Password string') 
-@click.option('--listExample', 'listExample', required=False, nargs = -1, help='Comma-separated list of numbers/ characters') 
+@click.argument('listexample', nargs = -1) 
 @click.option('--number', required=False, type=int, help = 'A single number input') 
 @click.option('--string', required=False, help = 'String input')
 @click.option('--target', required=False, type=int, help = 'Target value')
@@ -215,7 +215,7 @@ wrapper = WrapperClass()
 
 # main function
 
-def main(function: int, password: str | None, listExample: str | None, number: int | None, string: str | None, target: int | None, value: str | None) -> None:
+def main(function: int, password: str | None, listexample: str | None, number: int | None, string: str | None, target: int | None, value: str | None) -> None:
 
     """
     To get arguments from comand line and to parse
@@ -237,29 +237,24 @@ def main(function: int, password: str | None, listExample: str | None, number: i
                 click.echo("Invalid password:")
                 for err in errors:
                     print(f"   - {err}")
+        else:
+            password = click.prompt("Please enter your password", type=str)
+            errors = wrapper.is_valid_password(password)
+            if not errors:
+                click.echo("Valid password")
             else:
-                password = click.prompt("Please enter your password", type=str)
-                errors = wrapper.is_valid_password(password)
-                if not errors:
-                    click.echo("Valid password")
-                else:
-                    click.echo("Invalid password:")
-                    for err in errors:
-                        click.echo(f"  - {err}")
-        except Exception as e:
-            click.echo(f" Error: {e}")
-            
+                click.echo("Invalid password:")
+                for err in errors:
+                    click.echo(f"  - {err}")
 
     elif function == 2:
-        if listExample:
-            second_largest = wrapper.second_largest_number(listExample)
+        if listexample:
+            second_largest = wrapper.second_largest_number(listexample)
             click.echo(f"Second Largest: {second_largest}" )
         else:
-            listExample = click.prompt("Please enter a comma-separated list of numbers", type=int, nargs=-1)
-            result = wrapper.second_largest_number(listExample)
+            listexample = click.prompt("Please enter a comma-separated list of numbers")
+            result = wrapper.second_largest_number(listexample)
             click.echo(f"Second largest number: {result}")
-        except Exception as e:
-            click.echo(f" Error: {e}")
 
     elif function == 3:
         if number is not None:
@@ -267,54 +262,46 @@ def main(function: int, password: str | None, listExample: str | None, number: i
         else:
             number = click.prompt("Please enter a number", type=int)
             wrapper.reverse_number_triangle(number)
-            except Exception as e:
-                click.echo(f" Error: {e}")
 
-        case 4:
-            try:
-                if string:
-                    toggled_word = wrapper.toggle_character(string)
-                    click.echo(f"Toggled Word: {toggled_word}")
-                else:
-                    raise ValueError("Missing --string")
-            except Exception as e:
-                click.echo(f" Error: {e}")
+    elif function == 4:
+        if string:
+            toggled_word = wrapper.toggle_character(string)
+            click.echo(f"Toggled Word: {toggled_word}")
+        else:
+            string = click.prompt("Please enter a string", type=str)
+            toggled = wrapper.toggle_character(string)
+            click.echo(f"Toggled string: {toggled}")
 
-        case 5:
-            try:
-                if listExample:
-                    chars = listExample.split(",")
-                    result = wrapper.sum_up_contagious_characters(chars)
-                    click.echo(f"Result: {result}")
-                else:
-                    raise ValueError("Missing --list")
-            except Exception as e:
-                print(f" Error: {e}")
+    elif function == 5:
+        if listexample:
+            result = wrapper.sum_up_contagious_characters(listexample)
+            click.echo(f"Result: {result}")
+        else:
+            listexample = click.prompt("Please enter a comma-separated list of characters", type=str, nargs=-1)
+            result = wrapper.sum_up_contagious_characters(listexample)
+            click.echo(f"Result: {result}")
+            
+    elif function == 6:
+        if listexample and target is not None:
+            result = wrapper.sum_of_indices(numbers, target)
+            click.echo(f"Indices: {result}")
+        else:
+            listexample = click.prompt("Please enter a comma-separated list of numbers", type=int, nargs=-1)
+            target = click.prompt("Please enter the target sum", type=int)
+            result = wrapper.sum_of_indices(listexample, target)
+            click.echo(f"Indices: {result}")
+                
+    elif function == 7:
+        if value:
+            result = wrapper.is_palindrome(value)
+            click.echo("Palindrome" if result else " Not a Palindrome")
+        else:
+            value = click.prompt("Please enter a string or number to check for palindrome", type=str)
+            result = wrapper.is_palindrome(value)
+            click.echo("Palindrome" if result else "Not a palindrome")
 
-        case 6:
-            try:
-                if listExample and target is not None:
-                    numbers = listExample.split(",")
-                    numbers = list(map(int, numbers))
-                    result = wrapper.sum_of_indices(numbers, target)
-                    click.echo(f"Indices: {result}")
-                else:
-                    raise ValueError("Missing --list or --target")
-            except Exception as e:
-                click.echo(f" Error: {e}")
-
-        case 7:
-            try:
-                if value:
-                    result = wrapper.is_palindrome(value)
-                    click.echo("Palindrome" if result else " Not a Palindrome")
-                else:
-                    raise ValueError("Missing --palindromeInput")
-            except Exception as e:
-                click.echo(f" Error: {e}")
-
-        case _:
-            click.echo(f" Unknown function: '{function_number}'")
+    else:
+        click.echo(f" Unknown function")
 
 
 if __name__ == "__main__":
