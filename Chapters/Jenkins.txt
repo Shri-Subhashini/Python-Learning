@@ -1,0 +1,11 @@
+Why use jenkins - to speed and avoid manual errors.
+W/o jenkings, programmer manually test code. With it , it automatically test the code once we push. 
+it automates steps
+when do use - when we automate - deployment s/w, development; automated tested 
+where is used - run on server, clouds, ... have in anywhere.
+use multiple agents and parallel kind of executions
+CI- autonatically build and test
+
+strt linux
+install java jdk
+

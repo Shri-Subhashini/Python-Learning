@@ -4,3 +4,10 @@
 4) sys - sys.argv
 5) argparse - argparse module, which is a powerful and flexible way to handle command-line arguments in Python programs. It allows you to define what arguments your script will accept and how to process them.
 6) re - regular expression
+7) match 
+8) random
+9) statistics
+10) Internet access - urllib.request - to retrieve data from url; smtplib - sending mail
+11) datetime - date.today(), strftime()
+12) Date Compression - zlib, gzip, bz2, lzma, zipfile, tarfile
+13) timeit - Used to measure the execution time of small bits of Python code — accurately and consistently.

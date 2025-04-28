@@ -40,13 +40,14 @@ def fib(n):
     while a < n:
         print(a, end = " ")
         a, b =  b, a+b
-        print()
+    print()
 print(fib(200))
 
 #Default Argument Value
 
 def ask_ok(prompt, retries=4, reminder='Please try again!'):
     while True:
+        
         reply = input(prompt)
         if reply in {'y', 'ye', 'yes'}:
             return True
@@ -56,7 +57,7 @@ def ask_ok(prompt, retries=4, reminder='Please try again!'):
         if retries < 0:
             raise ValueError('invalid user response')
         print(reminder)
-
+print(ask_ok("do you want to continue?"))
 #Keyword Argument
 def parrot(voltage, state='a stiff', action='voom', type='Norwegian Blue'):
     print(" This parrot wouldn't", action, end=' ')

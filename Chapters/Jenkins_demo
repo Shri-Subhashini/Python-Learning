@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    stages {
+        stage('Check Python Version') {
+            steps {
+                sh 'python3 --version'
+            }
+        }
+        stage('Create Virtual Environment') {
+            steps {
+                sh 'python3 -m venv venv'
+            }
+        }
+        stage('Activate Virtual Environment and Install Packages') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                    pip install pytest
+                '''
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    pytest 
+                '''
+            }
+        }
+    }
+}

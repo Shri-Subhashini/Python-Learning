@@ -1,0 +1,206 @@
+Detailed info on failing assert statements (no need to remember self.assert* names) - With pytest, you can write simple assert statements. 
+Auto-discovery of test modules and functions - pytest automatically finds and runs tests by just using a naming convention:
+Filenames like test_*.py; Functions like def test_something(): ; Classes prefixed with Test
+Fixtures are functions that provide setup data or state for your tests.
+Can run unittest (including trial) test suites out of the box  - pytest can run tests written using Python’s built-in unittest framework or Twisted's trial without needing to rewrite them.
+pytest has a plugin system that allows you to extend or customize its behavior.
+There are over 1300+ community plugins for:
+
+Test reporting (pytest-html, pytest-cov)
+Test ordering
+Parallel execution (pytest-xdist)
+Integration with tools like Django, Flask, asyncio, etc.
+
+
+
+pip install pytest
+pytest --version
+
+Features:
+1) Simple Syntax: Pytest uses a simple syntax for writing tests, making it easy to get started and understand test cases.
+2) Fixtures - Provides a powerful fixture mechanism to set up and tear down resources needed for tests, promoting code reuse and reducing duplication.
+Eg:
+1. Code Reuse
+Fixtures allow you to define common resources (like database connections, test data, or mock services) once and use them across multiple test functions or modules.
+
+import pytest
+
+@pytest.fixture
+def sample_data():
+    return {"name": "ChatGPT", "version": 4.0}
+
+def test_name(sample_data):
+    assert sample_data["name"] == "ChatGPT"
+
+def test_version(sample_data):
+    assert sample_data["version"] == 4.0
+
+2)    Reducing Duplication
+Without fixtures, you'd have to repeat the same setup in each test — which is error-prone and harder to maintain.
+
+Without fixture (repetitive):
+
+python
+Copy code
+def test_name():
+    data = {"name": "ChatGPT", "version": 4.0}
+    assert data["name"] == "ChatGPT"
+
+def test_version():
+    data = {"name": "ChatGPT", "version": 4.0}
+    assert data["version"] == 4.0
+
+Use this - 
+@pytest.fixture
+def data():
+    return {"name": "ChatGPT", "version": 4.0}
+
+
+3) Parameterized Tests: Supports parameterized tests, allowing you to run the same test with different inputs efficiently.
+-> @pytest.mark.parametrize  - This decorator is used to define multiple sets of input values for the test.
+Eg:
+import pytest
+
+# Function to test
+def add(a, b):
+    return a + b
+
+# Parameterized test using pytest.mark.parametrize
+@pytest.mark.parametrize(
+    "a, b, expected",  # Parameters for the test
+    [
+        (1, 2, 3),        # Test case 1: a=1, b=2, expected=3
+        (5, 3, 8),        # Test case 2: a=5, b=3, expected=8
+        (-1, -1, -2),     # Test case 3: a=-1, b=-1, expected=-2
+        (0, 0, 0)         # Test case 4: a=0, b=0, expected=0
+    ]
+)
+def test_addition(a, b, expected):
+    result = add(a, b)
+    assert result == expected
+
+Explanation:
+
+@pytest.mark.parametrize: This decorator is used to define multiple sets of input values for the test.
+The first argument is a string containing the names of the parameters (in this case, a, b, and expected).
+The second argument is a list of tuples, where each tuple represents a different set of inputs and expected output.
+Test function (test_addition): This function runs multiple times with different inputs from the decorator. Each set of input values is passed into the test function as arguments (a, b, expected).
+Assertions: The test checks if the sum of a and b equals the expected result.
+
+4) Detailed Reporting: Offers detailed and readable test reports with clear information on test failures and errors, helping you diagnose issues quickly.
+
+Progress Bar: It shows which tests are running and their status (e.g., [ 33%], [ 66%], etc.).
+Test Failures: The FAILED section highlights the test that failed and provides detailed information about the failure (e.g., the expected value 1, but the actual value was 2).
+Traceback: The output includes a traceback to the line where the assertion failed.
+Short Summary: After the test run, pytest provides a summary of how many tests passed, failed, or were skipped.
+
+5) Extensible: Highly extensible with plugins, enabling additional functionalities and integrations modified to your testing needs.
+
+
+=> Pytest is used for API testing even though we can use pytest to write simple to complex tests, i.e., we can write codes to test API, database, UI, etc.
+Run a specific test file: pytest tests/test_login.py
+Run a specific test function: pytest tests/test_login.py::test_valid_login
+Run tests that match a keyword: pytest -k "login"  Eg: matches test_login_successful, test_login_failure
+Run tests by marker with -m: 
+Eg:
+import pytest
+
+@pytest.mark.smoke
+def test_homepage_loads():
+    assert True
+
+@pytest.mark.regression
+def test_payment_process():
+    assert True
+
+To run just the smoke tests: pytest -m smoke
+To run regression test: python -m regression
+To run smoke or regression: pytest -m "smoke or regression"
+Skip smoke and run remaining test: pytest -m "not smoke"
+skip = don't run this test.
+mark = label this test for special handling.
+
+
+=> Running pytest without mentioning a filename will run all files of format test_*.py or *_test.py in the current directory and subdirectories
+=> Function names which are not of format test* are not considered as test functions by pytest.
+
+Fixtures 
+=> In pytest, fixtures are a way to provide setup and teardown logic for tests. They are functions that allow you to set up any preconditions your tests need, such as preparing data, creating objects, or initializing services, and also cleaning up afterward.
+=> A test function can use a fixture by mentioning the fixture name as an input parameter.
+=>  A fixture function defined inside a test file has a scope within the test file only. We cannot use that fixture in another test file. To make a fixture available to multiple test files, we have to define the fixture function in a file called conftest.py.
+
+
+Parameterized
+=> To run the test against multiple sets of inputs.
+=> @pytest.mark.parametrize
+
+
+=> Stop Test Suite after N Test Failures
+=> pytest --maxfail = <num>   
+
+
+Run Tests in Parallel
+=> pip install pytest-xdist
+=> Use the -n option to specify the number of CPUs or processes; pytest -n 4
+=> pytest -n auto => Auto-detect CPU count
+
+
+
+Getting Started
+
+Eg 1:
+
+import pytest
+
+def f():
+    raise SystemExit(1)
+
+
+def test_mytest():
+    with pytest.raises(SystemExit):
+        f()
+
+=> his function raises a SystemExit exception, which is typically used when you want to stop the execution of a program and exit with a specific exit code.
+=> Here, it raises SystemExit(1), which would normally terminate the program with an exit code of 1.
+=> pytest.raises() is a context manager (meaning it’s used with with), which allows you to check if a specific exception is raised during the execution of the code inside the with block.
+=> In this case, you're telling pytest: "I expect SystemExit to be raised inside the block of code." If the SystemExit exception is not raised, the test will fail.
+=> When f() is called inside this block, it raises SystemExit(1), which matches the exception expected by pytest.raises(SystemExit).
+
+
+Eg 2:
+
+import pytest
+
+def f():
+    raise ExceptionGroup(
+        "Group message",
+        [
+            RuntimeError(),
+        ],
+    )
+
+
+def test_exception_in_group():
+    with pytest.raises(ExceptionGroup) as excinfo:
+        f()
+    assert excinfo.group_contains(RuntimeError)
+    assert not excinfo.group_contains(TypeError)
+
+=> This function raises an ExceptionGroup with the message "Group message" and contains a RuntimeError exception.
+=> pytest.raises() is a context manager that expects an exception to be raised inside the with block.
+=> In this case, you're saying: "I expect an ExceptionGroup to be raised by the function f()."
+=> excinfo is a special object that holds the exception information that was raised inside the with block.
+=> excinfo.group_contains(exception_type) is used to check if a specific exception type is part of the ExceptionGroup. In this case, it checks whether RuntimeError or TypeError is included in the exception group.
+
+
+Grouping Test:
+=> Grouping tests in classes can be beneficial for the following reasons:
+    1) Test organization
+    2) Sharing fixtures for tests only in that particular class
+    3) Applying marks at the class level and having them implicitly apply to all tests.
+=> In Python, a leading underscore is often used to indicate that a name is "private" or should not be accessed directly outside its defining context.
+=> In pytest, this convention is also applied to fixtures. If a fixture name starts with an underscore (_), it is considered private and pytest will omit it from the test output by default.
+
+
+How to invoke pytest
+=> 

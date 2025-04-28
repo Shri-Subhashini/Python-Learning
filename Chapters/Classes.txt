@@ -23,8 +23,8 @@ public:
 Word about names and objects:
 
 Unlike C++ and Modula-3, built-in types can be used as base classes for extension by the user. - Python allows user-defined classes to inherit from built-in types such as int, str,list(i.e) you can extend or modify the behavior of built-in types by creating your own classes that inherit from them. 
-Like in C++, most built-in operators with special syntax (arithmetic operators, subscripting etc.) can be redefined for class instances. - By defining special methods, you can redefine how operators like +, -, * work eith instances of your class. 
-Objects have individuality - each object occcupies a specific place in memoryand multiple variables can point to same object in memory. 
+Like in C++, most built-in operators with special syntax (arithmetic operators, subscripting etc.) can be redefined for class instances. - By defining special methods, you can redefine how operators like +, -, * work with instances of your class. 
+Objects have individuality - each object occcupies a specific place in memory and multiple variables can point to same object in memory. 
 This behavior, where more than 1 name can refer to same object is called aliasing. With immutable obj, aliasing is harmless because changes to an object create new object, leaving the original object unchanged.
 It have more impact on mutable objects because changes made to one alias can affect all other reference to that object. 
 To avoid unintended aliasing - use copy module or list slicing.
