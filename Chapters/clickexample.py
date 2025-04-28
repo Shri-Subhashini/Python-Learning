@@ -229,15 +229,14 @@ def main(function: int, password: str | None, listExample: str | None, number: i
             break 
     
     if function == 1:
-        try:
-            if password:
-                errors = wrapper.is_valid_password(password)
-                if not errors:
-                    click.echo("Valid password")
-                else:
-                    click.echo("Invalid password:")
-                    for err in errors:
-                        print(f"   - {err}")
+        if password:
+            errors = wrapper.is_valid_password(password)
+            if not errors:
+                click.echo("Valid password")
+            else:
+                click.echo("Invalid password:")
+                for err in errors:
+                    print(f"   - {err}")
             else:
                 password = click.prompt("Please enter your password", type=str)
                 errors = wrapper.is_valid_password(password)
@@ -266,7 +265,8 @@ def main(function: int, password: str | None, listExample: str | None, number: i
         if number is not None:
             wrapper.reverse_number_triangle(number)
         else:
-            raise ValueError("Missing --number")
+            number = click.prompt("Please enter a number", type=int)
+            wrapper.reverse_number_triangle(number)
             except Exception as e:
                 click.echo(f" Error: {e}")
 
