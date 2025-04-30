@@ -6,9 +6,9 @@ import pytest
 def test_greater():
     num = 100
     assert num > 100
+# pytest test_compare.py -m great
 
-
-# @pytest.mark.xfail
+@pytest.mark.xfail
 @pytest.mark.great
 
 def test_greater_equal():
@@ -29,3 +29,5 @@ import sys
 def test_windows_only():
     assert True
 
+# python -m pytest test_compare.py   - can run like this also. Now python runs from parent directory
+# But pytest runs from current directory only

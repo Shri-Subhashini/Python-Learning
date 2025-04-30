@@ -1,0 +1,42 @@
+Fixtures
+
+=> @pytest.fixtures
+=> Autouse fixture:
+  - An autouse fixture in pytest is a fixture that is automatically used by tests, without needing to be explicitly requested in the test function's arguments.
+
+Regular Fixtures Eg:
+
+import pytest
+
+@pytest.fixture
+def setup_env():
+    print("Setting up environment")
+
+def test_1(setup_env):
+    print("Running test_1")
+
+=> setup_env() only runs if the test includes it as an argument.
+
+Autouse Fixture Eg:
+
+import pytest
+
+@pytest.fixture(autouse=True)
+def setup_env():
+    print("Setting up environment")
+
+def test_1():
+    print("Running test_1")
+
+=> setup_env() runs before every test, even without being called.
+
+
+Fixture instantiation order
+
+=> When pytest wants to execute a test, once it knows what fixtures will be executed, it has to figure out the order they’ll be executed in. To do this, it considers 3 factors:
+    1) scope - function, class, module, package and session
+    2) dependencies
+    3) autouse
+
+=> pytest to linearize/”flatten” that order.
+=> if c1 is autouse, eventhouh c1 is not linked with any other function, still it executes for every other functions call because it is inside the current scope.

@@ -8,4 +8,6 @@ class TestClass:
         #assert hasattr(x, 'check')  # Fails
         assert hasattr(x, 'lower')   # This would pass, as strings have a 'lower' method.
 
-
+# Ways to run:
+# pytest test_groupmultipleclass.py::TestClass
+# pytest test_groupmultipleclass.py::TestClass::test_one
