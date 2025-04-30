@@ -1,0 +1,62 @@
+=> Python has a built-in module logging which allows writing status messages to a file or any other output streams. The file can contain information on which part of the code is executed and what problems have arisen.  
+
+Eg1:
+=> import logging
+name = 'GFG'
+logging.error('%s raised an error', name)
+
+Output: ERROR:root:GFG raised an error
+
+
+Eg2:
+# importing module
+import logging
+
+# Create and configure logger
+logging.basicConfig(filename="newfile.log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
+
+# Creating an object
+logger = logging.getLogger()
+
+# Setting the threshold of logger to DEBUG
+logger.setLevel(logging.DEBUG)
+
+# Test messages
+logger.debug("Harmless debug Message")
+logger.info("Just an information")
+logger.warning("Its a Warning")
+logger.error("Did you try to divide by zero")
+logger.critical("Internet is down")
+
+
+
+
+Pyproject.toml 
+
+=> Use pyproject.toml for modern - Standard for all new Python packaging tools., structured, standardized project configuration.
+=> Use requirements.txt only for simple dependency lists (e.g., for Docker or basic pip installs).
+=> TOML stands for Tom’s Obvious, Minimal Language. It’s a configuration file format (like JSON or YAML) that's simple, readable, and designed for defining settings in a structured way.
+=> TOML - One file to rule them all: Handles dependencies, build system, and tool configs (e.g., black, isort, mypy, etc.).
+=> Tools that use pyproject.toml
+✅ poetry — dependency management & publishing
+✅ black, isort — code formatters
+✅ mypy — static type checker
+✅ pytest — test config
+
+
+
+pytest-sugar Package
+
+=> It enhances the default output of pytest by:
+
+✅ Showing a progress bar for tests.
+
+✅ Displaying clear success/failure indicators (✓, ✗, etc.).
+
+✅ Giving colorful and cleaner output.
+
+✅ Showing more informative summaries of test results.
+
+=> pip install pytest pytest-sugar

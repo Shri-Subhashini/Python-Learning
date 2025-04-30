@@ -1,0 +1,15 @@
+To run jenkins from first
+
+1) podman ps -a  - to see all runnng images
+2) podman rm 62031ed8d9bd - to remove particular image
+3) d: - move to D folder
+4) podman pull jenkins/jenkins:lts - Pulling jenkins
+5) D:\> mkdir d:\jenkins_home  - Creating folder
+6) D:\> cd jenkins_home - change to jenkins_home
+7) podman run -d --name demo_jenkins -p 8080:8080 --user root jenkins/jenkins:lts   - Running image and port forwarding
+8) 6317f754e0a64c7d9ce9db1387890416 - copy password
+
+
+=> To stop images: podman stop image id 
+=> To start images : podman start image id 
+=> To log: podman logs -f demo_jenkins(Jenkins image name)
