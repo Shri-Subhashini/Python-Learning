@@ -40,3 +40,4 @@ Fixture instantiation order
 
 => pytest to linearize/”flatten” that order.
 => if c1 is autouse, eventhouh c1 is not linked with any other function, still it executes for every other functions call because it is inside the current scope.
+

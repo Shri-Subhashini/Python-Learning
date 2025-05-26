@@ -1,0 +1,36 @@
+online documentation that provides detailed information about commands, utilities, and system calls. They're accessed using the man command followed by the name of the item you want documentation for, for example, man ls
+
+Creating json file in Linux
+
+vi data.json
+Once inside the vi editor:
+
+Press i to enter insert mode.
+
+Type your JSON content, e.g.:
+
+
+{
+  "name": "Alice",
+  "age": 30,
+  "city": "New York"
+}
+Press Esc to exit insert mode.
+
+Type :wq and press Enter to save and quit.
+
+✅ You now have a file called data.json.
+
+2. Archive the JSON file using tar -cvf:
+
+tar -cvf data_archive.tar data.json
+-c: create a new archive
+
+-v: verbose (shows files being archived)
+
+-f: filename of the archive
+
+✅ This creates a data_archive.tar containing your data.json.
+
+
+

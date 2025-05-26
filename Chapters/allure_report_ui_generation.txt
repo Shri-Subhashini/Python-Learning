@@ -1,0 +1,17 @@
+1) podman ps -a
+2) podman images
+3) podman run -d --name allure -p 9000:9000 -v D:\Python-Learning\Python-Learning\Chapters\pytest-demo\amazon_test_framework\allure-results:/allure-results ubuntu sleep infinity
+4) podman exec -it allure bash
+5) root@8e30249088fc:/# apt-get update
+6) root@8e30249088fc:/# apt install default-jre
+7) Yes
+8) enter 5 abd 44
+9) root@8e30249088fc:/# apt install wget and type yes
+10) root@8e30249088fc:/# wget https://github.com/allure-framework/allure2/releases/download/2.34.0/allure_2.34.0-1_all.deb
+11) root@8e30249088fc:/# ls
+12) root@8e30249088fc:/# dpkg -i allure_2.34.0-1_all.deb
+13) root@8e30249088fc:/# ls
+14) root@8e30249088fc:/# rm -rf allure_2.34.0-1_all.deb
+15) root@8e30249088fc:/# allure serve /allure-results -p 9000
+16) root@8e30249088fc:/# allure serve /allure-results -p 9000 --host 0.0.0.0
+17) go to: localhost:9000

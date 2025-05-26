@@ -160,7 +160,7 @@ def test_mytest():
     with pytest.raises(SystemExit):
         f()
 
-=> his function raises a SystemExit exception, which is typically used when you want to stop the execution of a program and exit with a specific exit code.
+=> this function raises a SystemExit exception, which is typically used when you want to stop the execution of a program and exit with a specific exit code.
 => Here, it raises SystemExit(1), which would normally terminate the program with an exit code of 1.
 => pytest.raises() is a context manager (meaning it’s used with with), which allows you to check if a specific exception is raised during the execution of the code inside the with block.
 => In this case, you're telling pytest: "I expect SystemExit to be raised inside the block of code." If the SystemExit exception is not raised, the test will fail.
@@ -218,7 +218,7 @@ tests_to_run.txt
     tests/test_mod.py::TestClass
     -m slow
 
-=> To run: pytest @test_to_run.txt
+=> To run txt file add @ as prefix: pytest @test_to_run.txt
 
 => Or we can generate, txt file using: pytest --collect-only -q
 =>pytest --collect-only -q > test_list.txt 

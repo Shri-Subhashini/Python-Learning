@@ -1,0 +1,12 @@
+
+POM - Page Object model
+
+=> POM is a design pattern that creates an object repository for storing web elements. It separates the test code from the details of the UI structure, by modeling each page (or component) of your application as a class or object.
+=> A Page Component Object is a class that represents a reusable section or panel within a page — not the whole page.
+Eg: Navigation bar, Search box, Product card
+=>These components:
+    Have their own locators
+    Have behavior (e.g., click logout, open dropdown)
+    Are reusable across different pages
+
+=> 
