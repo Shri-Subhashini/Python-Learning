@@ -1,0 +1,9 @@
+username,password,expected_success,expected_error
+john,password123,True,
+,pass123,False,Username is required
+john,,False,Password is required
+jo,password123,False,Username too short
+john,123,False,Password too short
+admin,admin123,True,
+user,      ,False,Password is required
+, ,False,Username is required

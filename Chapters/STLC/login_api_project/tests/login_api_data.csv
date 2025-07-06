@@ -1,0 +1,5 @@
+username,password,status_code,response_body
+john,password123,200,{"token": "abc123"}
+john,wrongpass,401,Unauthorized
+,pass123,400,Username required
+admin,,400,Password required

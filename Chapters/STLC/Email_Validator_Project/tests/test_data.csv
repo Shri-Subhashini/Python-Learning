@@ -1,0 +1,12 @@
+email,expected
+user@example.com,True
+user.name@domain.co,True
+invalidemail,False
+user@.com,False
+@domain.com,False
+,user@domain.com,False
+user@domain.c,True
+user@domain.corporate,True
+user@domain,False
+user@domain.toolongtld,True
+123@456.789,True

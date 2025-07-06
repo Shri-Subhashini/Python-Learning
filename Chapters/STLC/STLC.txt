@@ -1,0 +1,158 @@
+STLC Phases Explained with Examples
+
+1. Requirement Analysis
+Goal: Understand and analyze testing requirements from the software requirements document (SRS, BRD).
+
+QA Tasks:
+
+Participate in requirement review meetings.
+
+Identify testable and non-testable requirements.
+
+Detect gaps or ambiguities and clarify with stakeholders.
+
+Example:
+A login system is to be developed. The requirement says:
+
+"Users should log in using username and password and receive a token."
+
+QA’s Role:
+
+Ask: What is the password policy? Token expiry?
+
+Clarify: What happens on 3 failed attempts? Is 2FA involved?
+
+2. Test Planning
+Goal: Define the scope, objectives, resources, effort estimation, schedule, and deliverables.
+
+QA Tasks:
+
+Choose testing approach (manual, automation, API testing).
+
+Identify tools (e.g., Pytest for APIs, Selenium for UI).
+
+Prepare Test Strategy/Plan document.
+
+Estimate effort and assign roles.
+
+Example:
+For a banking app:
+
+Plan to test login, transaction, and balance check modules.
+
+API tests will be written using Pytest.
+
+Test data will be masked for privacy.
+
+3. Test Case Design / Test Development
+Goal: Create detailed test cases that cover all requirements.
+
+QA Tasks:
+
+Write test cases (positive, negative, edge).
+
+Prepare test data.
+
+Get test cases reviewed and signed off.
+
+Example: For the login API:
+
+TC001: Valid login -> Expect 200 OK
+TC002: Invalid password -> Expect 401 Unauthorized
+TC003: Empty fields -> Expect 400 Bad Request
+Pytest Example:
+
+def test_login_valid():
+    response = requests.post("api/login", json={"user": "abc", "pass": "123"})
+    assert response.status_code == 200
+4. Test Environment Setup
+Goal: Prepare hardware and software conditions to execute test cases.
+
+QA Tasks:
+
+Coordinate with DevOps/IT to set up environments.
+
+Configure tools (Postman, Pytest, Selenium Grid, etc.).
+
+Deploy latest build in QA/test environment.
+
+Example:
+
+Set up test DB with sample users.
+
+Backend API deployed on staging server.
+
+Authentication keys and test URLs configured.
+
+5. Test Execution
+Goal: Execute the test cases and record actual vs expected results.
+
+QA Tasks:
+
+Run manual or automated test cases.
+
+Log test results.
+
+Raise defects for failures in Jira/Bugzilla.
+
+Re-test and regression test after bug fixes.
+
+Example:
+Running API tests for /transfer-funds and logging failure due to timeout:
+
+bash
+Copy
+Edit
+pytest -v test_funds.py > results.log
+6. Defect Reporting & Tracking
+Goal: Identify, log, and track bugs to closure.
+
+QA Tasks:
+
+Report detailed bug with steps to reproduce, severity, logs/screenshots.
+
+Communicate with dev team.
+
+Verify the bug fix in the next build.
+
+Example Bug Report:
+
+
+Title: Login fails with valid creds
+Steps:
+1. POST to /login with user/pass
+2. Server returns 500
+Severity: High
+Logs: Attached traceback
+7. Test Cycle Closure
+Goal: Analyze and summarize testing efforts. Evaluate quality of product and testing coverage.
+
+QA Tasks:
+
+Prepare test summary report.
+
+Finalize and archive test artifacts (test cases, logs, results).
+
+Metrics: pass/fail rate, defect leakage, test coverage.
+
+Retrospective meeting to improve future cycles.
+
+Example:
+
+100 test cases executed, 90 passed, 10 failed and fixed.
+
+Bug leakage reduced from last cycle by 30%.
+
+Lessons: Automate critical path early, improve test data management.
+
+
+Unit Testing 
+
+Unit Testing is a type of software testing where individual units or components of the software are tested in isolation to ensure that each part functions as intended.
+
+
+Integration Testing 
+
+Integration Testing verifies that multiple components or systems work together correctly.
+
+

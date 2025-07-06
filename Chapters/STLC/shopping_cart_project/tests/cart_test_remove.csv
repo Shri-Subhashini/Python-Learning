@@ -1,0 +1,3 @@
+product_id,status_code,response_json
+101,200,{"message": "Item removed"}
+888,404,{"error": "Product not found in cart"}

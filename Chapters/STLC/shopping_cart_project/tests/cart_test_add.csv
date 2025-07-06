@@ -1,0 +1,4 @@
+product_id,quantity,status_code,response_json
+101,2,200,{"message": "Item added"}
+999,1,404,{"error": "Product not found"}
+102,-5,400,{"error": "Quantity must be positive"}
