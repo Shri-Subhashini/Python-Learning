@@ -1,14 +1,13 @@
 import pytest
 from src.price_tracker import CryptoPriceTracker
 
-
+@pytest.mark.testrail_case_id(14)
 def test_api_rate_limit(sample_tracker, mock_rate_limit):
     with pytest.raises(Exception, match="Rate limit exceeded"):
         sample_tracker.fetch_prices()
 
+@pytest.mark.testrail_case_id(13)
 def test_invalid_coin(monkeypatch):
-   
-
     def mock_get(*args, **kwargs):
         class MockResponse:
             def __init__(self):

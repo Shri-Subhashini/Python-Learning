@@ -1,3 +1,6 @@
+import pytest
+
+@pytest.mark.testrail_case_id(11)
 def test_alert_trigger(sample_tracker, mock_success_response):
     tracker = sample_tracker
     tracker.set_alert("bitcoin", 30000)
