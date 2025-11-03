@@ -1,0 +1,12 @@
+city,expected_status,unit
+London,200,metric
+Paris,200,metric
+Tokyo,200,metric
+New York,200,metric
+Mumbai,200,metric
+,400,metric
+@!#$%^,404,metric
+AReallyLongCityNameExceedingNormalLimits,404,metric
+London,200,imperial
+Paris,200,imperial
+Tokyo,200,imperial

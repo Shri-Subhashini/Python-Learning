@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {"type": "string"},
+    "code": {"type": "integer"},
+    "total": {"type": "integer"},
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "author": {"type": "string"},
+          "genre": {"type": "string"},
+          "description": {"type": "string"},
+          "isbn": {"type": "string"},
+          "image": {"type": "string", "format": "uri"},
+          "published": {"type": "string", "format": "date"},
+          "publisher": {"type": "string"}
+        },
+        "required": [
+          "title",
+          "author",
+          "genre",
+          "description",
+          "isbn",
+          "image",
+          "published",
+          "publisher"
+        ]
+      }
+    }
+  },
+  "required": ["status", "code", "total", "data"]
+}
