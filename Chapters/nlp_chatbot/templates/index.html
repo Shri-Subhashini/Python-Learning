@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NLP Chatbot</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+        input {
+            width: 70%;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+        }
+        #chat {
+            margin-top: 20px;
+        }
+        .user{
+            color: blue;
+        }
+        .bot{
+            color: green;
+        }
+        #chatSection 
+        { 
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+
+<h2>🤖 NLP Chatbot</h2>
+
+<div id="loginSection">
+    <h3>Login</h3>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginMsg"></p>
+</div>
+
+<div id="chatSection">
+    <h3>Chat</h3>
+    <input type="text" id="message" placeholder="Ask your question..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <div id="chat"></div>
+
+</div>
+
+<script>
+let session_id = null;
+
+async function login() {
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username: username, password: password })
+    });
+
+    const data = await response.json();
+     if (data.session_id) {
+        session_id = data.session_id;
+
+        document.getElementById("loginMsg").innerText = "Login Successful!";
+        document.getElementById("loginSection").style.display = "none";
+        document.getElementById("chatSection").style.display = "block";
+    } else {
+        document.getElementById("loginMsg").innerText = data.error;
+    }
+}
+
+
+async function sendMessage() {
+    const inputField = document.getElementById("message");
+    const msg = inputField.value;
+
+    const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: msg, session_id: session_id })
+    });
+
+    const data = await response.json();
+
+    session_id = data.session_id
+
+    let chatDiv = document.getElementById("chat");
+    
+     if (data.error) {
+        chatDiv.innerHTML += `<p style="color:red">${data.error}</p>`;
+        return;
+    }
+    chatDiv.innerHTML = "";
+
+    data.history.forEach(item=>{
+        if (item.role == "user"){
+            chatDiv.innerHTML += `<p class="user"><b>You:</b> ${item.message}</p>`;
+        }
+        else{
+            chatDiv.innerHTML += `<p class="bot"><b>Bot:</b> ${item.message}</p>`;
+        }
+    });
+
+    inputField.value = "";
+    inputField.focus();
+}
+</script>
+
+</body>
+</html>
